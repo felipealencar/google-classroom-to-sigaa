@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Google Classroom to SIGAA</title>
+        <link rel="stylesheet" href="css/popup.css" />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+        rel="stylesheet"
+        />
+    </head>
+
+    <body>
+        <div id="csv-reader-popup">
+        <h2>Importar CSV para SIGAA</h2>
+        <form>
+            <div id="fields">
+            <p>
+                <label for="separator">Qual é o separador do CSV?</label>
+                <input
+                type="text"
+                name="separator"
+                id="separator"
+                placeholder=","
+                autofocus
+                readonly
+                />
+            </p>
+            <p>
+                <label for="separator">Nome das Avaliações?</label>
+                <input
+                type="text"
+                name="separator"
+                id="separator"
+                placeholder="e.g., Avaliação, AV"
+                autofocus
+                readonly/>
+            </p>
+            </div>
+            <div id="buttons">
+                <input type="file" id="csv-file"/>
+                <button type="submit" id="convert">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <polyline points="6 21 21 6 18 3 3 18 6 21" />
+                    <line x1="15" y1="6" x2="18" y2="9" />
+                    <path
+                        d="M9 3a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"
+                    />
+                    <path
+                        d="M19 13a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"
+                    />
+                    </svg>
+                    <span>Importar</span>
+                </button>
+            </div>
+            </form>
+        </div>
+    </body>
+    <script src="popup.js"></script>
+</html>
