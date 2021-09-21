@@ -10,7 +10,6 @@ function getEstudanteIndexByName(name, inputs){
 
 window.onload = function() {
     chrome.runtime.onMessage.addListener(function(message, _, sendResponse) {
-        console.log('onMessage', message.data);
         if (message.data) {
             let inputsAvaliacoes = document.querySelectorAll('[id^=nota_]');
             let inputsRecuperacoes = document.querySelectorAll('[name^=aval_subst]');
@@ -25,10 +24,9 @@ window.onload = function() {
                     for(let nota = 1, recuperacao = 1; nota <= avaliacoes ; estudanteNotaIndex++, nota++){                      
                         inputsAvaliacoes[estudanteNotaIndex].value = element[nota];
                         inputRecuperacao = inputsAvaliacoes[estudanteNotaIndex].parentElement.nextElementSibling.nextElementSibling.firstElementChild;
-                        console.log(inputRecuperacao);
                         var inputRecuperacaoClass = inputRecuperacao.className;
-                        console.log(inputRecuperacaoClass);
                         switch (inputRecuperacaoClass) {
+                            // valor do SIGAA
                             case "avaliacao_substitutiva":
                                 let R = 'R'+recuperacao;
                                 console.log(R);
@@ -45,7 +43,6 @@ window.onload = function() {
             //...
             //console.log(inputsNota);
             sendResponse({farewell: "goodbye"});
-            document.body.style.backgroundColor = 'orange';
         } else{
            sendResponse({});
         }

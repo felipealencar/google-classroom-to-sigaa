@@ -1,7 +1,7 @@
-/* eslint-disable no-undef */
 var students;
 const popup = document.getElementById('csv-reader-popup');
 
+// TODO: parametrizar essas constantes
 const CSV_SOBRENOME = 0;
 const CSV_NOME = 1;
 const CSV_EMAIL = 2;
@@ -49,15 +49,13 @@ function getMedia(nota1, nota2){
     return (nota1+nota2)/2;
 }
 
+
 function csvToArray(str, delimiter = ",") {
+    
     const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
     const rows = str.slice(str.indexOf("\n") + 1).split("\n");
   
-    // Map the rows
-    // split values from each row into an array
-    // use headers.reduce to create an object
-    // object properties derived from headers:values
-    // the object passed as an element of the array
+    // solução de conversão adaptada de: https://sebhastian.com/javascript-csv-to-array/.
     const arr = rows.map(function (row) {
         const values = row.split(delimiter);
         const el = headers.reduce(function (object, header, index) {
@@ -87,13 +85,14 @@ function csvToArray(str, delimiter = ",") {
         return el;
     });
     indexToRemove = 0;
-    numberToRemove = 2; //remove as duas primeiras linhas do vetor
+    numberToRemove = 2; //remove as duas primeiras linhas do vetor (linhas do Classroom: total de pontos e média)
     arr.splice(indexToRemove, numberToRemove);
-    // return the array
+    // returna o vetor
     return arr;
   }
 
 function normalizeName(){
+    // criação de um atributo nome completo, utilizando nome e sobre nome do classroom
     return students.map(row => {return row["Nome"] + ' ' + row["Sobrenome"]});
 }
 
