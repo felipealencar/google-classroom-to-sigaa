@@ -51,7 +51,7 @@ Para ser possível de realizar a importação, as notas da disciplina no Google 
 - Recuperação 2*;
 - Recuperação Final.
 
-*As itens relativos ao Ensino Médio Integrado. ___Não__ é necessário ter todas as avaliações e notas cadastradas_.
+*Itens relativos ao Ensino Médio Integrado. ___Não__ é necessário ter todas as avaliações e notas cadastradas_.
 
 Caso este padrão seja adotado, no Google Classroom, navegue até uma de suas avaliações de determinada disciplina, e faça download de todas as notas lançadas. Exemplo:
 
