@@ -9,13 +9,17 @@ const CSV_AV1 = 3;
 const CSV_AV2 = 4;
 const CSV_AV3 = 5;
 const CSV_AV4 = 6;
+const CSV_GRAD_AV_SUBST = 5;
 const CSV_REC1 = 7;
 const CSV_AV5 = 8;
 const CSV_AV6 = 9;
 const CSV_AV7 = 10;
 const CSV_AV8 = 11;
 const CSV_REC2 = 12;
-const CSV_REC_FINAL = 13;
+const CSV_REC_FINAL_MEDIO = 13;
+const CSV_REC_FINAL_GRAD = 6;
+const NIVEL_MEDIO = 1;
+const NIVEL_GRADUACAO = 2;
 const NOME_AVALIACAO = "Avaliação";
 const NOME_RECUPERACAO = "Recuperação";
 
@@ -29,8 +33,12 @@ function inputFileOnChange(event) {
     var inputFile = event.target.files[0];
     var reader = new FileReader();
     reader.onload = function(e) {
-        students = csvToArray(e.target.result);
-        console.log(students);
+        if(popup.querySelector("#medio").checked){
+            nivel = NIVEL_MEDIO;
+        } else if (popup.querySelector("#grad").checked){
+            nivel = NIVEL_GRADUACAO;
+        }
+        students = csvToArray(e.target.result, ',', nivel);
     };
   
     reader.readAsText(inputFile);
@@ -49,8 +57,46 @@ function getMedia(nota1, nota2){
     return (nota1+nota2)/2;
 }
 
+function formatArrayDisciplinaHeaders(values, object, header, index, disciplina){
+    // ajuste no ordenamento do csv padrão do Classroom
+    if (disciplina == NIVEL_MEDIO){
+        switch (header){
+            case 'Nome':
+                object[header] = values[index] + ' ' + values[index-1];
+            case NOME_AVALIACAO + ' 2':
+                object["1"] = getMedia(values[CSV_AV1], values[CSV_AV2]);
+            case NOME_AVALIACAO + ' 4':
+                object["2"] = getMedia(values[CSV_AV3], values[CSV_AV4]);
+            case NOME_RECUPERACAO + ' 1':
+                object["R1"] = values[CSV_REC1];
+            case NOME_AVALIACAO + ' 6':
+                object["3"] = getMedia(values[CSV_AV5], values[CSV_AV6]);
+            case NOME_AVALIACAO + ' 8':
+                object["4"] = getMedia(values[CSV_AV7], values[CSV_AV8]);
+            case NOME_RECUPERACAO + ' 2':
+                object["R2"] = values[CSV_REC2];
+            case NOME_RECUPERACAO + ' Final':
+                object["FINAL"] = values[CSV_REC_FINAL_MEDIO];
+        }
+    } else if (disciplina == NIVEL_GRADUACAO){
+        switch (header){
+            case 'Nome':
+                object[header] = values[index] + ' ' + values[index-1];
+            case NOME_AVALIACAO + ' 1':
+                object["1"] = avoidNaN(values[CSV_AV1]);
+            case NOME_AVALIACAO + ' 2':
+                object["2"] = avoidNaN(values[CSV_AV2]);
+            case NOME_AVALIACAO + ' Substitutiva':
+                object["SUBST"] = avoidNaN(values[CSV_GRAD_AV_SUBST]);
+            case NOME_RECUPERACAO + ' Final':
+                object["FINAL"] = values[CSV_REC_FINAL_GRAD];
+        }
+    }
+    object["Disciplina"] = disciplina;
+    return object;
+}
 
-function csvToArray(str, delimiter = ",") {
+function csvToArray(str, delimiter = ",", disciplina = NIVEL_MEDIO) {
     
     const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
     const rows = str.slice(str.indexOf("\n") + 1).split("\n");
@@ -61,25 +107,7 @@ function csvToArray(str, delimiter = ",") {
         const el = headers.reduce(function (object, header, index) {
             header = header.trim();
             object[header] = values[index];
-            // ajuste no ordenamento do csv padrão do Classroom
-            switch (header){
-                case 'Nome':
-                    object[header] = values[index] + ' ' + values[index-1];
-                case NOME_AVALIACAO + ' 2':
-                    object["1"] = getMedia(values[CSV_AV1], values[CSV_AV2]);
-                case NOME_AVALIACAO + ' 4':
-                    object["2"] = getMedia(values[CSV_AV3], values[CSV_AV4]);
-                case NOME_RECUPERACAO + ' 1':
-                    object["R1"] = values[CSV_REC1];
-                case NOME_AVALIACAO + ' 6':
-                    object["3"] = getMedia(values[CSV_AV5], values[CSV_AV6]);
-                case NOME_AVALIACAO + ' 8':
-                    object["4"] = getMedia(values[CSV_AV7], values[CSV_AV8]);
-                case NOME_RECUPERACAO + ' 2':
-                    object["R2"] = values[CSV_REC2];
-                case NOME_RECUPERACAO + ' Final':
-                    object["FINAL"] = values[CSV_REC_FINAL];
-            }
+            object = formatArrayDisciplinaHeaders(values, object, header, index, disciplina);
             return object;
         }, {});
         return el;

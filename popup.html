@@ -15,27 +15,34 @@
         <h2>Importar CSV para SIGAA</h2>
         <form>
             <div id="fields">
-            <p>
-                <label for="separator">Qual é o separador do CSV?</label>
-                <input
-                type="text"
-                name="separator"
-                id="separator"
-                placeholder=","
-                autofocus
-                readonly
-                />
-            </p>
-            <p>
-                <label for="separator">Nome das Avaliações?</label>
-                <input
-                type="text"
-                name="separator"
-                id="separator"
-                placeholder="e.g., Avaliação, AV"
-                autofocus
-                readonly/>
-            </p>
+                <p>
+                    <label for="separator">Qual é o separador do CSV?</label>
+                    <input
+                    type="text"
+                    name="separator"
+                    id="separator"
+                    placeholder=","
+                    autofocus
+                    readonly
+                    />
+                </p>
+                <p>
+                    <label for="separator">Nome das Avaliações?</label>
+                    <input
+                    type="text"
+                    name="separator"
+                    id="separator"
+                    placeholder="e.g., Avaliação, AV"
+                    autofocus
+                    readonly/>
+                </p>
+                <p>Nível da Disciplina:</p>
+                <input type="radio" id="medio" name="nivel" value="medio" checked>
+                <label for="medio">Ensino Médio/Técnico Integrado</label><br>
+                <input type="radio" id="grad" name="nivel" value="grad">
+                <label for="grad">Ensino Superior</label>
+                <br>
+                <br>
             </div>
             <div id="buttons">
                 <input type="file" id="csv-file"/>
