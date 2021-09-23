@@ -41,6 +41,7 @@ Para ser possível de realizar a importação, as notas da disciplina no Google 
 
 - Avaliação 1;
 - Avaliação 2;
+- Avaliação Substitutiva**;
 - Avaliação 3*;
 - Avaliação 4*;
 - Recuperação 1*;
@@ -52,6 +53,8 @@ Para ser possível de realizar a importação, as notas da disciplina no Google 
 - Recuperação Final.
 
 *Itens relativos ao Ensino Médio Integrado. ___Não__ é necessário ter todas as avaliações e notas cadastradas_.
+
+**Item relativo ao Ensino Superior.
 
 Caso este padrão seja adotado, no Google Classroom, navegue até uma de suas avaliações de determinada disciplina, e faça download de todas as notas lançadas. Exemplo:
 
